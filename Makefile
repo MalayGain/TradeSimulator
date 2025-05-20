@@ -1,6 +1,6 @@
-# Makefile for TradeSimulator (headless, custom Boost & fmt & OpenSSL)
-
-# Compiler
+# ---------------------------------------
+# Compiler and Flags
+# ---------------------------------------
 CXX       := g++
 CXXFLAGS  := -Wall -std=c++17 \
               -I. \
@@ -8,39 +8,50 @@ CXXFLAGS  := -Wall -std=c++17 \
               -Inetwork \
               -Imodels \
               -Iutils \
-              -IC:/boost/include \
-              -IC:/openssl/include
+              
 
-# Library flags
-LIBDIRS   := -LC:/boost/lib \
-              -LC:/openssl/lib
-LDLIBS    := -lboost_system \
-              -lws2_32 \
-	      -lmswsock \
-              -lfmt \
+
+# ---------------------------------------
+# Linker Flags and Libraries
+# ---------------------------------------
+LIBDIRS   := -LC:/msys64/mingw64/lib 
+
+
+
+LDLIBS    :=  -lfmt \
               -lssl \
-              -lcrypto
+              -lcrypto \
+              -lws2_32 \
+              -lmswsock
 
-# Source directories
+# ---------------------------------------
+# Source and Object Files
+# ---------------------------------------
 SRCDIRS   := . core network models utils
 SRC       := $(wildcard main.cpp $(foreach d,$(SRCDIRS),$(d)/*.cpp))
 OBJ       := $(SRC:.cpp=.o)
 
-# Target executable
+# ---------------------------------------
+# Output Executable
+# ---------------------------------------
 TARGET    := TradeSim.exe
 
+# ---------------------------------------
+# Build Rules
+# ---------------------------------------
 .PHONY: all clean
 
 all: $(TARGET)
 
-# Link step
+# $(TARGET): $(OBJ)
+# 	$(CXX) $(CXXFLAGS) $(OBJ) -o $@ $(LIBDIRS) $(LDLIBS)
+
 $(TARGET): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBDIRS) $(LDLIBS)
 
-# Compile step
+
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ) $(TARGET)
-
+	-@rm -f $(OBJ) $(TARGET)

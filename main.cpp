@@ -1,3 +1,4 @@
+
 #include <csignal>
 #include <memory>
 #include <thread>
@@ -5,9 +6,7 @@
 
 #include "utils/Logger.hpp"
 #include "core/AppController.hpp"
-// #include <QApplication>            // UI code commented out for headless build
-// #include "ui/UIUpdater.hpp"
-// #include "ui/MainWindow.hpp"
+
 
 static std::unique_ptr<AppController> g_app;
 
@@ -29,12 +28,7 @@ int main(int argc, char *argv[])
     g_app = std::make_unique<AppController>();
     g_app->run();
 
-    // UI code removed for headless compile:
-    // QApplication app(argc, argv);
-    // UIUpdater updater(g_app->metricsReady_);
-    // MainWindow window(&updater);
-    // window.show();
-    // return app.exec();
+    
 
     // Install signal handlers for graceful shutdown
     std::signal(SIGINT, signalHandler);

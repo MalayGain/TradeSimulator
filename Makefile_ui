@@ -1,3 +1,10 @@
+# Malay Gain@LAPTOP-RBE4P2FS MSYS /e/TradeSim
+# $ export PATH=/c/msys64/mingw64/bin:$PATH
+
+# Malay Gain@LAPTOP-RBE4P2FS MSYS /e/TradeSim
+# $ make
+
+
 # Compiler and flags
 CXX = g++
 CXXFLAGS = -Wall -std=c++17
